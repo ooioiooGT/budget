@@ -1,7 +1,7 @@
 
 
 import {React, useRef} from 'react';
-import { signup,signinwithgoogle, user } from '../api/firebase';
+import { signup,signinwithgoogle } from '../api/firebase';
 
 function Signup() {
     const emailRef = useRef();
@@ -10,8 +10,6 @@ function Signup() {
     async function handleSignup(){
         try{
             await signup(emailRef.current.value , passwordRef.current.value );
-            await user
-            console.log(user)
         }catch{
             alert('The account aleardy signup')
         }

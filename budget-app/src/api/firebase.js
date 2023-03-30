@@ -1,5 +1,5 @@
 import { initializeApp, } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider , signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider , signInWithPopup, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 
 const firebaseConfig = {
@@ -18,7 +18,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export const user = auth.currentUser
+
+
 export const provider = new GoogleAuthProvider();
 
 
@@ -32,4 +33,18 @@ export function signinwithgoogle (){
 }
 export function signin(email, password){
   return signInWithEmailAndPassword(auth, email, password);
+}
+export function signout(){
+  return signOut();
+}
+
+const user = auth.currentUser;
+if (user !== null) {
+  user.providerData.forEach((profile) => {
+    console.log("Sign-in provider: " + profile.providerId);
+    console.log("  Provider-specific UID: " + profile.uid);
+    console.log("  Name: " + profile.displayName);
+    console.log("  Email: " + profile.email);
+    console.log("  Photo URL: " + profile.photoURL);
+  });
 }
